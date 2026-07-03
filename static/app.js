@@ -222,13 +222,30 @@ function renderMessages(messages) {
     return "<p class=\"muted\">Žádné messages nejsou k dispozici.</p>";
   }
   return messages
-    .map((message, index) => `
-      <div class="message-record">
-        <span>${index + 1}. ${escapeHtml(message.role)}</span>
-        <pre>${escapeHtml(message.content)}</pre>
-      </div>
-    `)
+    .map((message, index) => {
+      const content = normalizedMessageContent(message);
+      return `
+        <div class="message-record">
+          <span>${index + 1}. ${escapeHtml(message.role)}</span>
+          <pre>${escapeHtml(content)}</pre>
+        </div>
+      `;
+    })
     .join("");
+}
+
+function normalizedMessageContent(message) {
+  const content = String(message.content || "").trim();
+  if (content) {
+    return content;
+  }
+  if (message.role === "assistant") {
+    return "Assistant zde nevrátil textovou odpověď, ale požádal o zavolání toolu. Detail najdeš v sekci Tool calls níže.";
+  }
+  if (message.role === "tool") {
+    return "Tool nevrátil textový obsah.";
+  }
+  return "Tato zpráva nemá textový obsah.";
 }
 
 function renderToolCalls(toolCalls) {

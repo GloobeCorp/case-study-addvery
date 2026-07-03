@@ -41,6 +41,8 @@ def message_records(messages: list[dict[str, Any]]) -> list[MessageRecord]:
         role = str(message.get("role", ""))
         content = message.get("content", "")
         if isinstance(content, str):
+            if not content.strip() and role == "assistant" and message.get("tool_calls"):
+                content = "Assistant nevrátil textovou odpověď, ale požádal o zavolání toolu. Detail je v Tool calls níže."
             records.append(MessageRecord(role=role, content=_compact(content)))
     return records
 
@@ -187,4 +189,3 @@ def _fallback_query_from_user_content(user_content: str) -> str:
     if match:
         return match.group(1).strip()[:180]
     return user_content.strip()[:180]
-
