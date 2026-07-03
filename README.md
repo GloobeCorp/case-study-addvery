@@ -22,8 +22,22 @@ Aplikace běží lokálně přes FastAPI a webové UI na `http://127.0.0.1:8000`
 
 ## Instalace
 
+Pokud repozitář stahujete z GitHubu:
+
 ```bash
-cd /Users/Martin/Documents/Codex/Python/case-study-addvery
+git clone https://github.com/GloobeCorp/case-study-addvery.git
+cd case-study-addvery
+```
+
+Pokud už máte soubory rozbalené lokálně, přejděte v terminálu do složky projektu:
+
+```bash
+cd case-study-addvery
+```
+
+Potom vytvořte virtuální prostředí a nainstalujte závislosti:
+
+```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -58,6 +72,27 @@ OPENAI_SEARCH_MODEL=gpt-5.5
 ```
 
 Jakmile je OpenAI `OPENAI_API_KEY` uložený, panel pro vložení klíče se v UI schová.
+
+## Rychlé ověření pro hodnotitele
+
+1. Nainstalujte závislosti podle sekce `Instalace`.
+2. Spusťte aplikaci příkazem `uvicorn app.main:app --reload`.
+3. Otevřete `http://127.0.0.1:8000`.
+4. Vložte OpenAI API key do pole `OpenAI API key (OPENAI_API_KEY)`.
+5. Zadejte téma nebo otázku a spusťte výzkum.
+6. V UI zkontrolujte tři agentní kroky: Research, Analysis a Writer.
+7. U Analysis Agenta je vidět tabulka hodnocení zdrojů podle `skills/source_quality/SKILL.md`.
+8. Detail `Messages / system prompt / tools` ukazuje system prompt, messages a tool calls.
+9. Výstupy se po doběhnutí uloží do `output/result.json` a `output/reply.md`.
+
+Bez OpenAI API key lze ověřit alespoň strukturu projektu a testy:
+
+```bash
+source .venv/bin/activate
+pytest
+```
+
+Testy nevolají OpenAI API.
 
 ## Architektura
 
