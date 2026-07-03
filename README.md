@@ -8,6 +8,12 @@ Research Agent -> Analysis/Synthesis Agent -> Writer Agent
 
 Aplikace běží lokálně přes FastAPI a webové UI na `http://127.0.0.1:8000`.
 
+## Požadavky
+
+- Python 3.11+
+- OpenAI API key z OpenAI Platform
+- Terminál se standardním `python3` a `pip`
+
 ## Co aplikace splňuje
 
 - Webové UI s jedním vstupem pro otázku.
@@ -19,6 +25,21 @@ Aplikace běží lokálně přes FastAPI a webové UI na `http://127.0.0.1:8000`
 - UI ukazuje stav, tool call, výstup a rozbalovací detail `messages / system prompt / tools` pro každý agentní krok.
 - UI u Analysis Agenta ukazuje tabulku hodnocení zdrojů `source_quality` se skóre a důvodem podle `SKILL.md`.
 - Výstup se ukládá do `output/result.json` a `output/reply.md`.
+
+## Nejrychlejší spuštění
+
+Pro rychlé ověření stačí zkopírovat tyto příkazy:
+
+```bash
+git clone https://github.com/GloobeCorp/case-study-addvery.git
+cd case-study-addvery
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+```
+
+Potom otevřete `http://127.0.0.1:8000`, vložte OpenAI API key přes webové UI a spusťte výzkum.
 
 ## Instalace
 
