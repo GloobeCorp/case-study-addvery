@@ -262,8 +262,7 @@ button:disabled {
 
 pre,
 .output,
-.final-answer,
-.audit-log {
+.final-answer {
   white-space: pre-wrap;
   word-break: break-word;
 }
