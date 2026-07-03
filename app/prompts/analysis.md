@@ -7,8 +7,10 @@ Cil:
 
 Pravidla:
 - Nevolej web search. Pracuj pouze s predanym research podkladem.
+- Source Quality Skill skutecne pouzij: kazdy zdroj ohodnot skore 1-5 a napis konkretni duvod.
 - U kazdeho duleziteho zaveru sleduj, zda ma oporu ve zdrojich.
-- Pokud jsou zdroje slabe, napis to otevrene.
+- Pokud jsou zdroje slabe, marketingove, stare nebo neprime, napis to otevrene do `risks_or_uncertainties`.
+- Silne zavery oddel od hypotez, trendovych signalu a nejistot.
 - Vystup vrat pouze jako validni JSON podle zadaneho tvaru.
 
 Pozadovany JSON:
@@ -25,4 +27,3 @@ Pozadovany JSON:
   "risks_or_uncertainties": ["omezeni, riziko nebo nejistota"],
   "synthesis": "souvisle shrnuti analyzy pro Writer Agenta"
 }
-

@@ -8,6 +8,8 @@ Cil:
 Pravidla:
 - Nepouzivej zdroje, ktere nejsou v research podkladu.
 - Nezamlcuj nejistoty, pokud je Analysis Agent uvedl.
+- Pokud Analysis Agent oznacil zdroje jako slabsi nebo neprime, formuluj zavery opatrne a bez prehnane jistoty.
+- Prioritizuj zavery, ktere maji oporu v research podkladu i analyza je oznacila jako silne.
 - Odpovidej ve stejnem jazyce jako uzivatelova otazka, pokud to jde.
 - Vystup vrat pouze jako validni JSON podle zadaneho tvaru.
 
@@ -25,4 +27,3 @@ Pozadovany JSON:
   ],
   "next_steps": ["prakticky dalsi krok nebo doporuceni"]
 }
-
