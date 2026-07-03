@@ -39,7 +39,7 @@ keyForm.addEventListener("submit", async (event) => {
   keyMessage.classList.remove("error");
   const apiKey = apiKeyInput.value.trim();
   if (!apiKey) {
-    setMessage(keyMessage, "API klíč je prázdný.", true);
+    setMessage(keyMessage, "OpenAI API key je prázdný.", true);
     return;
   }
 
@@ -51,10 +51,10 @@ keyForm.addEventListener("submit", async (event) => {
     });
     if (!response.ok) {
       const error = await response.json();
-      throw new Error(error.detail || "Klíč se nepodařilo uložit.");
+      throw new Error(error.detail || "OpenAI API key se nepodařilo uložit.");
     }
     apiKeyInput.value = "";
-    setMessage(keyMessage, "API klíč je uložen lokálně.");
+    setMessage(keyMessage, "OpenAI API key je uložen lokálně.");
     await loadConfig();
   } catch (error) {
     setMessage(keyMessage, error.message, true);

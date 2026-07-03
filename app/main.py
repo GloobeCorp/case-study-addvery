@@ -45,9 +45,11 @@ def save_key(payload: ApiKeyRequest) -> dict[str, bool]:
 @app.post("/api/research", response_model=ResearchRun)
 def run_research(payload: ResearchRequest) -> ResearchRun:
     if not has_openai_api_key():
-        raise HTTPException(status_code=400, detail="OPENAI_API_KEY is missing.")
+        raise HTTPException(
+            status_code=400,
+            detail="Chybí OPENAI_API_KEY. Vložte OpenAI API key, ne Claude/Anthropic API key.",
+        )
     try:
         return process_research_question(payload.question)
     except Exception as exc:
         raise HTTPException(status_code=500, detail=str(exc)) from exc
-

@@ -41,19 +41,22 @@ Potom otevřít:
 http://127.0.0.1:8000
 ```
 
-## OPENAI_API_KEY
+## OpenAI API key
 
-API klíč se nevkládá do Gitu. Po prvním spuštění ho lze vložit přímo ve webovém UI. Backend ho uloží do lokálního `.env`, který je v `.gitignore`.
+Aplikace používá OpenAI API přes balíček `openai`. Je potřeba vložit `OPENAI_API_KEY` z OpenAI Platform. Nepoužívejte Claude/Anthropic API key, protože ho tato aplikace neumí použít.
+
+API klíč se nevkládá do Gitu. Po prvním spuštění ho lze vložit přímo ve webovém UI do pole `OpenAI API key (OPENAI_API_KEY)`. Backend ho uloží do lokálního `.env`, který je v `.gitignore`.
 
 Do repozitáře patří jen `.env.example`:
 
 ```text
+# Vlozte OpenAI API key. Nepouzivejte Claude/Anthropic API key.
 OPENAI_API_KEY=
 OPENAI_MODEL=gpt-5.4-mini
 OPENAI_SEARCH_MODEL=gpt-5.5
 ```
 
-Jakmile je `OPENAI_API_KEY` uložený, panel pro vložení klíče se v UI schová.
+Jakmile je OpenAI `OPENAI_API_KEY` uložený, panel pro vložení klíče se v UI schová.
 
 ## Architektura
 

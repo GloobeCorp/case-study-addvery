@@ -134,6 +134,10 @@ h3 {
   margin-top: 10px;
 }
 
+.key-note {
+  margin-top: 6px;
+}
+
 .key-form {
   grid-template-columns: minmax(0, 1fr) auto;
 }

@@ -25,7 +25,7 @@ def get_openai_api_key() -> str:
     load_environment()
     api_key = os.getenv("OPENAI_API_KEY", "").strip()
     if not api_key:
-        raise RuntimeError("OPENAI_API_KEY is missing. Save it in the web UI first.")
+        raise RuntimeError("Chybí OPENAI_API_KEY. Vložte OpenAI API key ve webovém UI, ne Claude/Anthropic API key.")
     return api_key
 
 
@@ -42,9 +42,9 @@ def get_search_model_name() -> str:
 def save_openai_api_key(api_key: str) -> None:
     value = api_key.strip()
     if not value:
-        raise ValueError("API key cannot be empty.")
+        raise ValueError("OpenAI API key nemůže být prázdný.")
     if not value.startswith("sk-") or len(value) < 20:
-        raise ValueError("API key does not look like an OpenAI API key.")
+        raise ValueError("Tento klíč nevypadá jako OpenAI API key. Nepoužívejte Claude/Anthropic API key.")
 
     data = _read_env_values()
     data["OPENAI_API_KEY"] = value
@@ -78,4 +78,3 @@ def _write_env_values(values: dict[str, str]) -> None:
         if key not in ordered_keys:
             lines.append(f"{key}={values[key]}")
     ENV_PATH.write_text("\n".join(lines) + "\n", encoding="utf-8")
-

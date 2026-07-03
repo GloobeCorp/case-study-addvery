@@ -19,10 +19,11 @@
       </section>
 
       <section id="keyPanel" class="panel hidden">
-        <h2>OPENAI_API_KEY</h2>
+        <h2>OpenAI API key (OPENAI_API_KEY)</h2>
+        <p class="muted key-note">Aplikace používá OpenAI API. Vložte OpenAI API key, ne Claude/Anthropic API key.</p>
         <form id="keyForm" class="key-form">
-          <input id="apiKeyInput" type="password" autocomplete="off" placeholder="sk-..." />
-          <button type="submit">Uložit klíč</button>
+          <input id="apiKeyInput" type="password" autocomplete="off" placeholder="OpenAI key, např. sk-..." />
+          <button type="submit">Uložit OpenAI key</button>
         </form>
         <p id="keyMessage" class="message"></p>
       </section>
