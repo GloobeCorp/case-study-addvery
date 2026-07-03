@@ -13,7 +13,7 @@ DEFAULT_SEARCH_MODEL = "gpt-5.5"
 
 
 def load_environment() -> None:
-    load_dotenv(ENV_PATH)
+    load_dotenv(ENV_PATH, override=True)
 
 
 def has_openai_api_key() -> bool:
