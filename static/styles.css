@@ -297,6 +297,36 @@ pre {
   padding-top: 0;
 }
 
+.audit-detail {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: #fbfcfc;
+}
+
+.audit-detail summary {
+  color: var(--accent-dark);
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.audit-detail__section {
+  margin-top: 12px;
+}
+
+.message-record {
+  display: grid;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.message-record span {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
 @media (max-width: 900px) {
   .agent-grid,
   .query-row,
@@ -308,4 +338,3 @@ pre {
     min-height: 44px;
   }
 }
-

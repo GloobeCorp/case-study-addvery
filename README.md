@@ -16,7 +16,7 @@ Aplikace běží lokálně přes FastAPI a webové UI na `http://127.0.0.1:8000`
 - Research Agent má tool `web_search(query)`, který je modelu předán jako function-calling tool.
 - Analysis Agent reálně používá vlastní skill `skills/source_quality/SKILL.md`.
 - Handoff mezi agenty je explicitní v `app/orchestrator.py`.
-- UI ukazuje stav, tool call a výstup každého agenta.
+- UI ukazuje stav, tool call, výstup a rozbalovací detail `messages / system prompt / tools` pro každý agentní krok.
 - Výstup se ukládá do `output/result.json` a `output/reply.md`.
 
 ## Instalace

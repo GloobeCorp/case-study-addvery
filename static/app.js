@@ -179,6 +179,21 @@ function renderResult(result) {
       <p><b>Výstup:</b> ${escapeHtml(step.output_summary)}</p>
       <p><b>Handoff:</b> ${escapeHtml(step.handoff_summary)}</p>
       <p><b>Messages:</b> ${step.messages.length} · <b>Tool calls:</b> ${step.tool_calls.length}</p>
+      <details class="audit-detail">
+        <summary>Messages / system prompt / tools</summary>
+        <div class="audit-detail__section">
+          <h3>System prompt</h3>
+          <pre>${escapeHtml(step.system_prompt_excerpt || "Není dostupný.")}</pre>
+        </div>
+        <div class="audit-detail__section">
+          <h3>Messages</h3>
+          ${renderMessages(step.messages)}
+        </div>
+        <div class="audit-detail__section">
+          <h3>Tool calls</h3>
+          ${renderToolCalls(step.tool_calls)}
+        </div>
+      </details>
     `;
     auditLog.appendChild(item);
   }
@@ -198,6 +213,38 @@ function setMessage(element, text, isError = false) {
   element.classList.toggle("error", isError);
 }
 
+function renderMessages(messages) {
+  if (!messages || messages.length === 0) {
+    return "<p class=\"muted\">Žádné messages nejsou k dispozici.</p>";
+  }
+  return messages
+    .map((message, index) => `
+      <div class="message-record">
+        <span>${index + 1}. ${escapeHtml(message.role)}</span>
+        <pre>${escapeHtml(message.content)}</pre>
+      </div>
+    `)
+    .join("");
+}
+
+function renderToolCalls(toolCalls) {
+  if (!toolCalls || toolCalls.length === 0) {
+    return "<p class=\"muted\">Tento agent nevolal žádný tool.</p>";
+  }
+  return toolCalls
+    .map((toolCall, index) => `
+      <div class="message-record">
+        <span>${index + 1}. ${escapeHtml(toolCall.tool_name)}</span>
+        <pre>Arguments:
+${escapeHtml(JSON.stringify(toolCall.arguments, null, 2))}
+
+Output preview:
+${escapeHtml(toolCall.output_preview)}</pre>
+      </div>
+    `)
+    .join("");
+}
+
 function escapeHtml(value) {
   return String(value || "")
     .replaceAll("&", "&amp;")
@@ -206,4 +253,3 @@ function escapeHtml(value) {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 }
-
