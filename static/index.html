@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Multi-agentní výzkumný asistent</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="topbar">
+        <div>
+          <h1>Multi-agentní výzkumný asistent</h1>
+          <p id="modelStatus" class="muted">Načítám konfiguraci...</p>
+        </div>
+        <span id="apiBadge" class="badge">API</span>
+      </section>
+
+      <section id="keyPanel" class="panel hidden">
+        <h2>OPENAI_API_KEY</h2>
+        <form id="keyForm" class="key-form">
+          <input id="apiKeyInput" type="password" autocomplete="off" placeholder="sk-..." />
+          <button type="submit">Uložit klíč</button>
+        </form>
+        <p id="keyMessage" class="message"></p>
+      </section>
+
+      <section class="query-panel">
+        <form id="researchForm">
+          <label for="questionInput">Téma nebo otázka</label>
+          <div class="query-row">
+            <textarea
+              id="questionInput"
+              rows="4"
+              placeholder="Např. Jaké jsou hlavní trendy AI automatizace v e-commerce v roce 2026?"
+            ></textarea>
+            <button id="runButton" type="submit">Spustit výzkum</button>
+          </div>
+        </form>
+        <p id="runMessage" class="message"></p>
+      </section>
+
+      <section class="agent-grid" aria-live="polite">
+        <article class="agent-card" id="researchCard">
+          <div class="agent-card__header">
+            <h2>Research Agent</h2>
+            <span class="status" data-status="pending">Čeká</span>
+          </div>
+          <p class="role">Vyhledá zdroje a připraví faktický podklad.</p>
+          <div class="card-block">
+            <h3>Tool</h3>
+            <pre id="researchTool">web_search(query)</pre>
+          </div>
+          <div class="card-block">
+            <h3>Výstup</h3>
+            <div id="researchOutput" class="output">-</div>
+          </div>
+        </article>
+
+        <article class="agent-card" id="analysisCard">
+          <div class="agent-card__header">
+            <h2>Analysis Agent</h2>
+            <span class="status" data-status="pending">Čeká</span>
+          </div>
+          <p class="role">Použije Source Quality Skill a vyhodnotí souvislosti.</p>
+          <div class="card-block">
+            <h3>Skill</h3>
+            <pre>skills/source_quality/SKILL.md</pre>
+          </div>
+          <div class="card-block">
+            <h3>Výstup</h3>
+            <div id="analysisOutput" class="output">-</div>
+          </div>
+        </article>
+
+        <article class="agent-card" id="writerCard">
+          <div class="agent-card__header">
+            <h2>Writer Agent</h2>
+            <span class="status" data-status="pending">Čeká</span>
+          </div>
+          <p class="role">Sestaví finální strukturovanou odpověď.</p>
+          <div class="card-block">
+            <h3>Handoff</h3>
+            <pre>research + analysis → final answer</pre>
+          </div>
+          <div class="card-block">
+            <h3>Výstup</h3>
+            <div id="writerOutput" class="output">-</div>
+          </div>
+        </article>
+      </section>
+
+      <section id="finalPanel" class="panel hidden">
+        <h2 id="finalTitle">Finální odpověď</h2>
+        <div id="finalAnswer" class="final-answer"></div>
+        <div class="sources">
+          <h3>Zdroje</h3>
+          <ul id="sourceList"></ul>
+        </div>
+      </section>
+
+      <section id="auditPanel" class="panel hidden">
+        <h2>Audit</h2>
+        <div id="auditLog" class="audit-log"></div>
+      </section>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
+
