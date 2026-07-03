@@ -74,6 +74,23 @@ h3 {
   margin-top: 6px;
 }
 
+.status-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+}
+
+.status-line span {
+  display: inline-flex;
+  align-items: center;
+}
+
+.status-line span + span::before {
+  content: "·";
+  margin-right: 10px;
+  color: #94a0a7;
+}
+
 .badge {
   display: inline-flex;
   min-width: 88px;

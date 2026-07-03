@@ -98,7 +98,11 @@ researchForm.addEventListener("submit", async (event) => {
 async function loadConfig() {
   const response = await fetch("/api/config");
   const config = await response.json();
-  modelStatus.textContent = `Model: ${config.model} · Search model: ${config.search_model}`;
+  modelStatus.innerHTML = `
+    <span>Model: ${escapeHtml(config.model)}</span>
+    <span>Search model: ${escapeHtml(config.search_model)}</span>
+    <span>Vypracoval: Martin Sedláček</span>
+  `;
   if (config.has_openai_api_key) {
     apiBadge.textContent = "API uložen";
     apiBadge.classList.add("ready");
