@@ -17,6 +17,7 @@ Aplikace běží lokálně přes FastAPI a webové UI na `http://127.0.0.1:8000`
 - Analysis Agent reálně používá vlastní skill `skills/source_quality/SKILL.md`.
 - Handoff mezi agenty je explicitní v `app/orchestrator.py`.
 - UI ukazuje stav, tool call, výstup a rozbalovací detail `messages / system prompt / tools` pro každý agentní krok.
+- UI u Analysis Agenta ukazuje tabulku hodnocení zdrojů `source_quality` se skóre a důvodem podle `SKILL.md`.
 - Výstup se ukládá do `output/result.json` a `output/reply.md`.
 
 ## Instalace

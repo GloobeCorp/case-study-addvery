@@ -144,8 +144,7 @@ function renderResult(result) {
         `${result.research.summary}\n\nZdroje: ${result.research.sources.length}\nMezery: ${result.research.gaps.join("; ") || "neuvedeno"}`;
     }
     if (step.agent_name === "Analysis Agent") {
-      cards["Analysis Agent"].output.textContent =
-        `${result.analysis.synthesis}\n\nZávěry:\n- ${result.analysis.key_findings.join("\n- ")}\n\nRizika:\n- ${result.analysis.risks_or_uncertainties.join("\n- ") || "neuvedeno"}`;
+      cards["Analysis Agent"].output.innerHTML = renderAnalysisOutput(result.analysis);
     }
     if (step.agent_name === "Writer Agent") {
       cards["Writer Agent"].output.textContent = result.writer.final_answer;
@@ -215,6 +214,80 @@ function setCardStatus(agentName, status, label) {
 function setMessage(element, text, isError = false) {
   element.textContent = text;
   element.classList.toggle("error", isError);
+}
+
+function renderAnalysisOutput(analysis) {
+  return `
+    <p>${escapeHtml(analysis.synthesis || "Syntéza není dostupná.")}</p>
+    <div class="analysis-section">
+      <h3>Závěry</h3>
+      ${renderSimpleList(analysis.key_findings, "Žádné závěry nejsou k dispozici.")}
+    </div>
+    <div class="analysis-section">
+      <h3>Hodnocení zdrojů podle Source Quality Skill</h3>
+      ${renderSourceQualityTable(analysis.source_quality)}
+    </div>
+    <div class="analysis-section">
+      <h3>Rizika</h3>
+      ${renderSimpleList(analysis.risks_or_uncertainties, "Žádná rizika nejsou uvedená.")}
+    </div>
+  `;
+}
+
+function renderSimpleList(items, emptyText) {
+  if (!items || items.length === 0) {
+    return `<p class="muted">${escapeHtml(emptyText)}</p>`;
+  }
+  return `
+    <ul class="compact-list">
+      ${items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
+    </ul>
+  `;
+}
+
+function renderSourceQualityTable(sourceQuality) {
+  if (!sourceQuality || sourceQuality.length === 0) {
+    return "<p class=\"muted\">Hodnocení zdrojů není k dispozici.</p>";
+  }
+  return `
+    <div class="source-quality-table-wrap">
+      <table class="source-quality-table">
+        <thead>
+          <tr>
+            <th>Zdroj</th>
+            <th>Skóre</th>
+            <th>Důvod</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${sourceQuality.map((source) => `
+            <tr>
+              <td>${renderSourceQualityTitle(source)}</td>
+              <td><span class="source-quality-score">${escapeHtml(source.score)}</span></td>
+              <td>${escapeHtml(source.reason || "Důvod není uveden.")}</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+function renderSourceQualityTitle(source) {
+  const title = escapeHtml(source.title || source.url || "Zdroj bez názvu");
+  if (!isHttpUrl(source.url)) {
+    return title;
+  }
+  return `<a href="${escapeHtml(source.url)}" target="_blank" rel="noreferrer">${title}</a>`;
+}
+
+function isHttpUrl(value) {
+  try {
+    const url = new URL(String(value || ""));
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch {
+    return false;
+  }
 }
 
 function renderMessages(messages) {

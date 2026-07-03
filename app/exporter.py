@@ -29,6 +29,8 @@ def _build_markdown(run: ResearchRun) -> str:
     if not sources:
         sources = "- Zdroje nebyly dostupne ve strukturovanem vystupu."
 
+    source_quality = _build_source_quality_markdown(run)
+
     agent_log = "\n".join(
         (
             f"### {index}. {step.agent_name}\n\n"
@@ -47,6 +49,36 @@ def _build_markdown(run: ResearchRun) -> str:
         f"## Otazka\n\n{run.question}\n\n"
         f"## Finalni odpoved\n\n{run.final_answer}\n\n"
         f"## Zdroje\n\n{sources}\n\n"
+        f"## Hodnoceni zdroju podle Source Quality Skill\n\n{source_quality}\n\n"
         f"## Agentni audit\n\n{agent_log}\n"
     )
 
+
+def _build_source_quality_markdown(run: ResearchRun) -> str:
+    if not run.analysis.source_quality:
+        return "- Hodnoceni zdroju neni dostupne."
+
+    rows = [
+        "| Zdroj | Skore | Duvod |",
+        "| --- | ---: | --- |",
+    ]
+    for source in run.analysis.source_quality:
+        title = _markdown_source_title(source.title, source.url)
+        rows.append(
+            "| "
+            f"{title} | "
+            f"{source.score} | "
+            f"{_escape_markdown_cell(source.reason)} |"
+        )
+    return "\n".join(rows)
+
+
+def _markdown_source_title(title: str, url: str) -> str:
+    safe_title = _escape_markdown_cell(title or url or "Zdroj bez nazvu")
+    if not url:
+        return safe_title
+    return f"[{safe_title}]({url})"
+
+
+def _escape_markdown_cell(value: str) -> str:
+    return str(value).replace("\n", " ").replace("|", "\\|").strip()

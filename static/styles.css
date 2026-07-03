@@ -284,6 +284,61 @@ pre {
   line-height: 1.5;
 }
 
+.analysis-section {
+  margin-top: 14px;
+}
+
+.compact-list {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+
+.compact-list li {
+  margin-bottom: 6px;
+}
+
+.source-quality-table-wrap {
+  margin-top: 8px;
+  overflow-x: auto;
+}
+
+.source-quality-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.source-quality-table th,
+.source-quality-table td {
+  border: 1px solid var(--line);
+  padding: 8px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.source-quality-table th {
+  background: #f4f7f7;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.source-quality-table td:nth-child(2) {
+  text-align: center;
+  width: 58px;
+}
+
+.source-quality-score {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  border-radius: 999px;
+  background: rgba(15, 118, 110, 0.09);
+  color: var(--accent-dark);
+  font-weight: 700;
+}
+
 .final-answer {
   margin-top: 12px;
   line-height: 1.6;
